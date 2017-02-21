@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests;
+use App\User;
+use Validator;
 
 class AccountController extends Controller
 {
@@ -13,56 +15,49 @@ class AccountController extends Controller
         return view('admin.login');
     }
 
-    public function store(Request $request)
+    public function checkLogin(Request $request)
     {
-        $this->validate($request,
-            [
-                'email' => 'required',
-                'password' => 'required'
-            ],
-            [
-                'email.required' => trans('admin.error.emailrequire'),
-                'pass.required' => trans('admin.error.passrequire'),
-            ]);
-        if (Auth::attempt(['email' => $request->email,'password' => $request->password]))
+        if (Auth::attempt(['email' => $request->email, 'password' => $request->password]))
         {
             return redirect('admin/cate');
+        } else {
+            return redirect('admin')->with('message', trans('admin.error.login_fail'));
         }
-        else
-        {
-            return redirect('admin')->with('message', trans('admin.error.loginfail'));
-        }
-    }
-
-    public function getLogout()
-    {
-        Auth::logout();
-        return redirect('admin');
     }
 
     public function edit($id)
     {
+        $user = User::find($id);
+
+        return view('admin.user.user_edit', ['user' => $user]);
+    }
+
+    public function logout()
+    {
+        Auth::logout();
+
+        return redirect('admin');
+    }
+
+    public function showChangePass()
+    {
         $user = Auth::user();
+
         return view('admin.user.change_pass', ['user' => $user]);
     } 
 
-    public function update(Request $request, $id)
+    public function storeChangePass(Request $request)
     {
         $user = Auth::user();
-        $this->validate($request,
-            [
-                'pass' => 'required|min:6|max:32',
-                'rePass' => 'required|same:pass',
-            ],
-            [
-                'pass.required' => trans('admin.error.passrequire'),
-                'pass.min' => trans('admin.error.passmin'),
-                'pass.max' => trans('admin.error.passmax'),
-                'repass.required' => trans('admin.error.repassrequire'),
-                'repass.same' => trans('admin.error.repasssame')
-            ]);
-        $user->password = bcrypt($request->pass);
-        $user->save();
-        return redirect()->back()->with('message', trans('admin.message.changepasssucess'));
+        $validator = Validator::make($request->only('pass', 'repass'), $user->rules('changePass'), $user->messages());
+        
+        if ($validator->fails()) 
+        {
+            return redirect()->back()->withErrors($validator)->withInput();
+        } else {
+            $user->store($request);
+
+            return redirect()->back()->with('message', trans('admin.message.change_pass_sucess'));
+        }
     }
 }

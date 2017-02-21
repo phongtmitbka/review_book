@@ -39,6 +39,9 @@
                         <a href="{{ route('admin.user.create') }}">@lang('admin.label.add')</a>
                     </li>
                     <li>
+                        <a href="{{ route('admin.newRequest') }}">@lang('admin.label.new_request')</a>
+                    </li>
+                    <li>
                         <a href="{{ route('admin.request.index') }}">@lang('admin.label.request')</a>
                     </li>
                     <li>

@@ -6,92 +6,67 @@ use Illuminate\Http\Request;
 use App\Book;
 use App\Category;
 use App\Http\Requests;
+use Validator;
 
 class BookController extends Controller
 {
     public function index()
     {
-        $books = Book::paginate(config('view.paginate'));
-        return view('admin.book.book_list', ['books' => $books]);
+        $result = Book::all()->count();
+        $books = Book::orderBy('id', 'desc')->paginate(config('view.paginate'));
+
+        return view('admin.book.book_list', ['books' => $books, 'result' => $result]);
     }
 
     public function create()
     {
         $cates = Category::all();
+
         return view('admin.book.book_add', ['cates' => $cates]);
     }
 
     public function store(Request $request)
     {
-        $this->validate($request,
-            [
-                'title' => 'required|min:3',
-            ],
-            [
-                'title.required' => trans('admin.error.titlerequire'),
-                'title.min' => trans('admin.error.titlemin'),
-                'author.required' => trans('admin.error.authorrequire'),
-                'author.min' => trans('admin.error.authormin')
-            ]);
-        $book = new Book;
-        $book->title = $request->title;
-        $book->author = $request->author;
-        $book->publish_date = $request->date;
-        $book->number_pages = $request->pages;
-        $book->category_id = $request->cate;
-        if($request->hasFile('image'))
+        $book = new Book();     
+        $validator = Validator::make($request->only('title', 'author'), $book->rules(), $book->messages());
+        
+        if ($validator->fails()) 
         {
-            $file = $request->file('image');
-            $name = $file->getClientOriginalName();
-            $name = str_random(5)."_".$name;
-            $book->image = $name;
-            $file->move('image', $name);
+            return redirect()->back()->withErrors($validator)->withInput();
+        } else {
+            $book->storeBook($request);
+
+            return redirect()->back()->with('message', trans('admin.message.add_success'));
         }
-        else $book->image = "";
-        $book->save();
-        return redirect()->back()->with('message', trans('admin.message.addsuccess'));
     }
 
     public function edit($id)
     {
         $cates = Category::all();
         $book = Book::find($id);
+
         return view('admin.book.book_edit', ['book' => $book, 'cates' => $cates]);
     }
 
     public function update(Request $request, $id)
     {
         $book = Book::find($id);
-        $this->validate($request,
-            [
-                'title' => 'required|min:3',
-            ],
-            [
-                'title.required' => trans('admin.error.titlerequire'),
-                'title.min' => trans('admin.error.titlemin'),
-                'author.required' => trans('admin.error.authorrequire'),
-                'author.min' => trans('admin.error.authormin')
-            ]) ;
-        $book->title = $request->title;
-        $book->author = $request->author;
-        $book->publish_date = $request->date;
-        $book->category_id = $request->cate;
-        $book->number_pages = $request->pages;
-        if($request->hasFile('image'))
+        $validator = Validator::make($request->only('title', 'author','image'), $book->rules(), $book->messages());
+        
+        if ($validator->fails()) 
         {
-            $file = $request->file('image');
-            $name = $file->getClientOriginalName();
-            $name = str_random(5)."_".$name;
-            $book->image = $name;
-            $file->move('image', $name);
+            return redirect()->back()->withErrors($validator)->withInput();
+        } else {
+            $book->updateBook($request);
+
+            return redirect()->back()->with('message', trans('admin.message.edit_success'));
         }
-        $book->save();
-        return redirect()->back()->with('message', trans('admin.message.editsuccess'));
     }
 
     public function show($id)
     {
         $book = Book::find($id);
+
         return view('admin.book.book_del', ['book' => $book]);
     }
 
@@ -99,6 +74,16 @@ class BookController extends Controller
     {
         $book = Book::find($id);
         $book->delete();
+        
         return redirect('admin/book');
+    }
+
+    public function searchBook(Request $request)
+    {
+        $value = $request->search;
+        $books = Book::where('title', 'like', $value."%")->paginate(config('view.paginate'));
+        $result = Book::where('title', 'like', $value."%")->count();
+
+        return view('admin.book.book_list', ['books' => $books, 'value' => $value, 'result' => $result]);
     }
 }

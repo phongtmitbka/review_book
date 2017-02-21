@@ -14,22 +14,22 @@ class Controller extends BaseController
 {
     use AuthorizesRequests, AuthorizesResources, DispatchesJobs, ValidatesRequests;
 
-    function __construct()
+    public function __construct()
     {
-    	$this->login();
+        $this->login();
     }
 
     function login()
     {
-    	if(Auth::check())
-    	{
+        if(Auth::check())
+        {
             $user = Auth::user();
             if($user->language == 0)
                 $lang = 'en';
             else 
                 $lang = 'vi';
             App::setlocale($lang);
-    		view()->share('user_login', $user);
-    	}
+            view()->share('user_login', $user);
+        }
     }
 }

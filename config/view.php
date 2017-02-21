@@ -30,5 +30,7 @@ return [
 
     'compiled' => realpath(storage_path('framework/views')),
 
-    'paginate' => 5
+    'paginate' => 5,
+
+    'top' =>5
 ];

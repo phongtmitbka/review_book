@@ -18,8 +18,7 @@ class CreateBookRequestTable extends Migration
             $table->integer('category_id')->unsigned();
             $table->string('title','100');
             $table->string('image','30')->nullable();
-            $table->foreign('user_id')->references('id')->on('users');
-            $table->foreign('category_id')->references('id')->on('categories');
+            $table->smallInteger('status')->default(0)->nullable;
             $table->timestamps();
         });
     }

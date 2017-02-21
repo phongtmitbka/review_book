@@ -7,7 +7,7 @@
         <div class="row">
             <div class="col-lg-12">
                 <h1 class="page-header">@lang('admin.label.account')
-                    <small>@lang('admin.label.changepass')</small>
+                    <small>@lang('admin.label.change_pass')</small>
                 </h1>
             </div>
             <!-- /.col-lg-12 -->
@@ -24,12 +24,11 @@
                         {{ session('message') }}
                     </div>
                 @endif
-                <form action="{{ route('admin.changepass.update', $user->id) }}" method="POST">
-                    <input type="hidden" name="_method" value="PUT">
+                <form action="{{ route('admin.changePass') }}" method="POST">
                     <input type="hidden" name="_token" value="{{ csrf_token() }}">
                     <div class="form-group">
                         <label>@lang('admin.label.email')</label>
-                        <input type="email" class="form-control" name="email" disabled="" value="{{ $user->email }}" />
+                        <input type="email" class="form-control" name="email" readonly="" value="{{ $user->email }}" />
                     </div>
                     <div class="form-group">
                         <label>@lang('admin.label.pass')</label>
@@ -37,7 +36,7 @@
                     </div>
                     <div class="form-group">
                         <label>@lang('admin.label.repass')</label>
-                        <input type="password" class="form-control" name="rePass" placeholder="@lang('admin.message.repass')" />
+                        <input type="password" class="form-control" name="repass" placeholder="@lang('admin.message.repass')" />
                     </div>
                     <button type="submit" class="btn btn-primary">@lang('admin.button.save')</button>
                     <button type="reset" class="btn btn-default">@lang('admin.button.reset')</button>

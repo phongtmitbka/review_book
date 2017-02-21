@@ -31,8 +31,8 @@
                         <input type="email" class="form-control" name="email" placeholder="@lang('admin.message.email')" />
                     </div>
                     <div class="form-group">
-                        <label>@lang('admin.label.membername')</label>
-                        <input class="form-control" name="name" placeholder="@lang('admin.message.membername')" />
+                        <label>@lang('admin.label.member_name')</label>
+                        <input class="form-control" name="name" placeholder="@lang('admin.message.member_name')" />
                     </div>
                     <div class="form-group">
                         <label>@lang('admin.label.pass')</label>

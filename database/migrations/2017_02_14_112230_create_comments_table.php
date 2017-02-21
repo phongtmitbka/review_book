@@ -17,8 +17,6 @@ class CreateCommentsTable extends Migration
             $table->integer('user_id')->unsigned();
             $table->integer('review_id')->unsigned();
             $table->string('comment','200');
-            $table->foreign('user_id')->references('id')->on('users');
-            $table->foreign('review_id')->references('id')->on('reviews');
             $table->timestamps();
         });
     }

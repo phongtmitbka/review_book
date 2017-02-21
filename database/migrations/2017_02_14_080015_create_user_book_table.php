@@ -16,10 +16,7 @@ class CreateUserBookTable extends Migration
             $table->increments('id');
             $table->integer('user_id')->unsigned();
             $table->integer('book_id')->unsigned();
-            $table->integer('review_id')->unsigned();
-            $table->foreign('user_id')->references('id')->on('users');
-            $table->foreign('book_id')->references('id')->on('books');
-            $table->smallInteger('readbookstatus');
+            $table->smallInteger('read_book_status');
             $table->tinyInteger('favorite')->default(0);
             $table->integer('rate')->unsigned()->nullable();
             $table->timestamps();

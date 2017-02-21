@@ -13,7 +13,7 @@ class ModifyUserTable extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->smallInteger('level');
+            $table->smallInteger('level')->default(2);
             $table->smallInteger('language');
         });
     }

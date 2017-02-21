@@ -28,19 +28,19 @@
                     <input type="hidden" name="_method" value="PUT">
                     <input type="hidden" name="_token" value="{{ csrf_token() }}">
                     <div class="form-group">
-                        <label>@lang('admin.label.bookname')</label>
-                        <input class="form-control" name="title" placeholder="@lang('admin.message.bookname')" value="{{ $book->title }}" />
+                        <label>@lang('admin.label.book_name')</label>
+                        <input class="form-control" name="title" placeholder="@lang('admin.message.book_name')" value="{{ $book->title }}" />
                     </div>
                     <div class="form-group">
                         <label>@lang('admin.label.author')</label>
-                        <input class="form-control" name="author" placeholder="@lang('admin.message.authorname')" value="{{ $book->author }}" />
+                        <input class="form-control" name="author" placeholder="@lang('admin.message.author_name')" value="{{ $book->author }}" />
                     </div>
                     <div class="form-group">
-                        <label>@lang('admin.label.publishdate')</label>
-                        <input type = "date" class="form-control" name="date" placeholder="@lang('admin.message.publishdate')" value="{{ $book->publish_date }}" />
+                        <label>@lang('admin.label.publish_date')</label>
+                        <input type = "date" class="form-control" name="date" placeholder="@lang('admin.message.publish_date')" value="{{ $book->publish_date }}" />
                     </div>
                     <div class="form-group">
-                        <label>@lang('admin.label.selectcate')</label>
+                        <label>@lang('admin.label.select_cate')</label>
                         <select name="cate">
                             @foreach($cates as $cate)
                                 <option value="{{ $cate->id }}" 
@@ -53,8 +53,8 @@
                         </select>
                     </div>
                     <div class="form-group">
-                        <label>@lang('admin.label.numberpages')</label>
-                        <input type="number" class="form-control" name="pages" placeholder="@lang('admin.message.numberpages')" value="{{ $book->number_pages }}" />
+                        <label>@lang('admin.label.number_pages')</label>
+                        <input type="number" class="form-control" name="pages" placeholder="@lang('admin.message.number_pages')" value="{{ $book->number_pages }}" />
                     </div>
                     <div class="form-group">
                         <label>@lang('admin.label.image')</label>

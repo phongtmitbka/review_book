@@ -16,8 +16,8 @@
                     <input type="hidden" name="_method" value="DELETE">
                     <input type="hidden" name="_token" value="{{ csrf_token() }}">
                     <div>
-                        <label>@lang('admin.label.edit')</label>
-                        <input class="form-control" name="book" value="{{ $book->title }}" />
+                        <label>@lang('admin.label.del')</label>
+                        <input class="form-control" name="book" value="{{ $book->title }}" readonly="" />
                     </div>
                     </br>
                     <button type="submit" class="btn btn-primary">@lang('admin.button.del')</button>

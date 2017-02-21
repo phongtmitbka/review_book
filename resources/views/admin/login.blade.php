@@ -36,14 +36,14 @@
                                     {{ session('message' )}}
                                 </div>
                             @endif
-                            <form role="form" action="{{ route('admin.store') }}" method="POST">
+                            <form role="form" action="{{ route('admin.checkLogin') }}" method="POST">
                                 <fieldset>
                                     <input type="hidden" name="_token" value="{{ csrf_token() }}">
                                     <div class="form-group">
-                                        <input class="form-control" placeholder="@lang('admin.message.email')" name="email" type="email" autofocus>
+                                        <input class="form-control" placeholder="@lang('admin.message.email')" name="email" type="email" autofocus required="">
                                     </div>
                                     <div class="form-group">
-                                        <input class="form-control" placeholder="@lang('admin.message.pass')" name="password" type="password" value="">
+                                        <input class="form-control" placeholder="@lang('admin.message.pass')" name="password" type="password" required="">
                                     </div>
                                     <button type="submit" class="btn btn-lg btn-success btn-block">@lang('admin.button.login')</button>
                                 </fieldset>

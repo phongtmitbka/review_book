@@ -1,0 +1,29 @@
+{
+  "name": "reviewbook",
+  "description": "",
+  "main": "resources/views/admin/layout/index.blade.php",
+  "authors": [
+    "To Minh Phong <phongtmitbka@gmail.com>"
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/phongtmitbka/brs_46",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "public/bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "datatables": "^1.10.13",
+    "js": "^6.0.1",
+    "holderjs": "^2.9.4",
+    "bootstrap-social": "^5.1.1",
+    "metisMenu": "^2.6.2",
+    "font-awesome": "^4.7.0",
+    "datatables-plugins": "^1.10.13",
+    "datatables-responsive": "^2.1.1"
+  }
+}

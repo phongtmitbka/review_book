@@ -29,10 +29,10 @@
                     <input type="hidden" name="_token" value="{{ csrf_token() }}">
                     <div class="form-group">
                         <label>@lang('admin.label.email')</label>
-                        <input type="email" class="form-control" name="email" disabled="" value="{{ $user->email }}" />
+                        <input type="email" class="form-control" name="email" value="{{ $user->email }}" readonly="" />
                     </div>
                     <div class="form-group">
-                        <label>@lang('admin.label.membername')</label>
+                        <label>@lang('admin.label.member_name')</label>
                         <input class="form-control" name="name" value="{{ $user->name }}" />
                     </div>
                     <div class="form-group">

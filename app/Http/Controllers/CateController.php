@@ -5,35 +5,35 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Category;
 use App\Http\Requests;
+use Validator;
 
 class CateController extends Controller
 {
     public function index()
     {
-        $cate = Category::paginate(config('view.paginate'));
+        $result =Category::all()->count();
+        $cates = Category::paginate(config('view.paginate'));
         
-    	return view('admin.category.cate_list', ['cates' => $cate]);
+        return view('admin.category.cate_list', ['cates' => $cates, 'result' => $result]);
     }
 
     public function create()
     {
-    	return view('admin.category.cate_add');
+        return view('admin.category.cate_add');
     }
 
     public function store(Request $request )
     {
-        $this->validate($request,
-            [
-                'cate' => 'required|unique:categories,name'
-            ],
-            [
-                'cate.required' => trans('admin.error.caterequire'),
-                'cate.unique' => trans('admin.error.cateunique')
-            ]) ;
         $cate = new Category;
-        $cate->name = $request->cate;
-        $cate->save();
-        return redirect()->back()->with('message', trans('admin.message.addsuccess'));
+        $validator = Validator::make($request->all(), $cate->rules(), $cate->messages());
+        
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
+        } else {
+            $cate->store($request);
+        
+            return redirect()->back()->with('message', trans('admin.message.add_success'));
+        }
     }
 
     public function edit($id)
@@ -46,17 +46,15 @@ class CateController extends Controller
     public function update(Request $request, $id)
     {       
         $cate = Category::find($id);
-        $this->validate($request,
-            [
-                'cate' => 'required|unique:categories,name'
-            ],
-            [
-                'cate.required' => trans('admin.error.caterequire'),
-                'cate.unique' => trans('admin.error.catenotchange')
-            ]);
-        $cate->name = $request->cate;
-        $cate->save();
-        return redirect()->back()->with('message', trans('admin.message.editsuccess'));
+        $validator = Validator::make($request->all(), $cate->rules(), $cate->messages());
+        
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
+        } else {
+            $cate->store($request);
+
+            return redirect()->back()->with('message', trans('admin.message.edit_success'));
+        }
     }
 
     public function show($id)
@@ -72,5 +70,14 @@ class CateController extends Controller
         $cate->delete();
 
         return redirect('admin/cate');
+    }
+
+    public function searchCategory(Request $request)
+    {
+        $value = $request->search;
+        $cates = Category::where('name', 'like', $value."%")->paginate(config('view.paginate'));
+        $result = Category::where('name', 'like', $value."%")->count();
+        
+        return view('admin.category.cate_list', ['cates' => $cates, 'value' => $value, 'result' => $result]);
     }
 }

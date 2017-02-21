@@ -21,7 +21,6 @@ class CreateBookTable extends Migration
             $table->integer('number_pages')->nullable();
             $table->integer('category_id')->unsigned();
             $table->float('rate','2','1')->default(1.0);
-            $table->foreign('category_id')->references('id')->on('categories');
             $table->timestamps();
         });
     }

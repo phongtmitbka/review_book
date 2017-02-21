@@ -17,7 +17,7 @@
                     <input type="hidden" name="_token" value="{{ csrf_token() }}">
                     <div>
                         <label>@lang('admin.label.del')</label>
-                        <input class="form-control" value="{{ $review->id }}" />
+                        <input class="form-control" value="{{ $review->id }}" readonly="" />
                     </div>
                     </br>
                     <button type="submit" class="btn btn-primary">@lang('admin.button.del')</button>

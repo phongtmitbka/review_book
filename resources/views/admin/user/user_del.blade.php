@@ -17,45 +17,11 @@
                     <input type="hidden" name="_token" value="{{ csrf_token() }}">
                     <div class="form-group">
                         <label>@lang('admin.label.email')</label>
-                        <input type="email" class="form-control" name="email" disabled="" value="{{ $user->email }}" />
+                        <input type="email" class="form-control" name="email" readonly="" value="{{ $user->email }}" />
                     </div>
                     <div class="form-group">
-                        <label>@lang('admin.label.membername')</label>
-                        <input class="form-control" name="name" value="{{ $user->name }}" />
-                    </div>
-                    <div class="form-group">
-                        <label>@lang('admin.label.level')</label>
-                        <label class="radio-inline">
-                            <input name="level" 
-                            @if ($user->level == 1) 
-                                checked = "checked"
-                            @endif
-                            value="1" type="radio">@lang('admin.label.admin')
-                        </label>
-                        <label class="radio-inline">
-                            <input name="level" 
-                            @if ($user->level == 2) 
-                                checked = "checked"
-                            @endif
-                            value="2" type="radio">@lang('admin.label.member')
-                        </label>
-                    </div>
-                    <div class="form-group">
-                        <label>@lang('admin.label.language')</label>
-                        <label class="radio-inline">
-                            <input name="language" 
-                            @if ($user->language == 0) 
-                                checked = "checked"
-                            @endif
-                            value="0" type="radio">@lang('admin.label.english')
-                        </label>
-                        <label class="radio-inline">
-                            <input name="language" 
-                            @if ($user->language == 1) 
-                                checked = "checked"
-                            @endif
-                            value="1" type="radio">@lang('admin.label.vietnamese')
-                        </label>
+                        <label>@lang('admin.label.member_name')</label>
+                        <input class="form-control" name="name" value="{{ $user->name }}" readonly=""/>
                     </div>
                     <button type="submit" class="btn btn-primary">@lang('admin.button.del')</button>
                     <button type="reset" class="btn btn-default">@lang('admin.button.reset')</button>

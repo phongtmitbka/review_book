@@ -28,7 +28,7 @@
                     <input type="hidden" name="_token" value="{{ csrf_token() }}">
                     <div>
                         <label>@lang('admin.label.add')</label>
-                        <input class="form-control" name="cate" placeholder="@lang('admin.message.catename')" />
+                        <input class="form-control" name="cate" placeholder="@lang('admin.message.cate_name')" />
                     </div>
                     </br>
                     <button type="submit" class="btn btn-primary">@lang('admin.button.add')</button>

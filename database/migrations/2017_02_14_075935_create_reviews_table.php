@@ -18,8 +18,6 @@ class CreateReviewsTable extends Migration
             $table->integer('book_id')->unsigned();
             $table->string('review','2000');
             $table->integer('number_like');
-            $table->foreign('user_id')->references('id')->on('users');
-            $table->foreign('book_id')->references('id')->on('books');
             $table->timestamps();
         });
     }

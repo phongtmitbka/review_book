@@ -29,7 +29,7 @@
                     <input type="hidden" name="_token" value="{{ csrf_token() }}">
                     <div>
                         <label>@lang('admin.label.edit')</label>
-                        <input class="form-control" name="cate" placeholder="@lang('admin.message.catename')" value="{{ $cate->name }}" />
+                        <input class="form-control" name="cate" placeholder="@lang('admin.message.cate_name')" value="{{ $cate->name }}" />
                     </div>
                     </br>
                     <button type="submit" class="btn btn-primary">@lang('admin.button.save')</button>

@@ -15,12 +15,12 @@
                     </li>
                 @endif
                 </li>
-                <li><a href="{{ route('admin.user.edit', $user_login->id) }}"><i class="fa fa-gear fa-fw"></i> @lang('admin.user.profile')</a>
+                <li><a href="{{ route('admin.edit', $user_login->id) }}"><i class="fa fa-gear fa-fw"></i> @lang('admin.user.profile')</a>
                 </li>
-                 <li><a href="{{ route('admin.changepass.edit', $user_login->id) }}"><i class="fa fa-fw"></i> @lang('admin.user.changepass')</a>
+                 <li><a href="{{ route('admin.changePass') }}"><i class="fa fa-fw"></i> @lang('admin.user.change_pass')</a>
                 </li>
                 <li class="divider"></li>
-                <li><a href="logout"><i class="fa fa-sign-out fa-fw"></i> @lang('admin.user.logout')</a>
+                <li><a href="{{ route('admin.logout') }}"><i class="fa fa-sign-out fa-fw"></i> @lang('admin.user.logout')</a>
                 </li>
             </ul>
             <!-- /.dropdown-user -->
